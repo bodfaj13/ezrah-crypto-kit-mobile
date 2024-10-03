@@ -1,4 +1,11 @@
-import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 import {Token, TokenInfo} from '../../api/tokenQueries';
 import {lightColorMode} from '../../theme/colors';
@@ -7,6 +14,9 @@ import Reanimated, {
   SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
+import {formatCurrency} from '../../utils/helper';
+import SolidHeart from '../../assets/svg/solid-heart.svg';
+import Heart from '../../assets/svg/heart.svg';
 
 type TokenItemProps = {
   token: Token;
@@ -39,7 +49,13 @@ function RightAction(prog: SharedValue<number>, drag: SharedValue<number>) {
             height: viewHeight,
           },
         ]}>
-					
+        <TouchableOpacity activeOpacity={0.6}>
+          <Heart
+            width={20}
+            height={20}
+            fill={lightColorMode.appColorBlack}
+          />
+        </TouchableOpacity>
       </View>
     </Reanimated.View>
   );
@@ -66,7 +82,7 @@ const TokenItem = ({token, info}: TokenItemProps) => {
           </View>
         </View>
         <View style={styles.rightSide}>
-          <Text style={styles.infoMainText}>${token.price.toFixed(2)}</Text>
+          <Text style={styles.infoMainText}>{formatCurrency(token.price)}</Text>
           <Text
             style={
               token.percentageChange24h > 0 ? styles.gainText : styles.lossText
@@ -86,7 +102,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
-		marginRight: 10,
+    marginRight: 10,
   },
   leftSide: {
     flexDirection: 'row',
@@ -124,5 +140,7 @@ const styles = StyleSheet.create({
   rightAction: {
     width: 50,
     backgroundColor: lightColorMode.appColorGrey1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

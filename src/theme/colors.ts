@@ -4,9 +4,9 @@ export const lightColorMode = {
   appColorBlue: '#0071c5',
   appColorRed: '#FF0000',
   appColorGreen: '#00FF00',
-	appColorGrey1: '#D3D3D3',
-  appColorGrey2: '#CCCCCC',
-  appColorGrey3: '#FAFAFA',
+  appColorGrey1: '#F8F8F8',
+  appColorBlueLighter: '#66B2E8',
+  appColorBlue1: '#dfeafb',
 };
 
 export const darkColorMode = {
@@ -15,7 +15,7 @@ export const darkColorMode = {
   appColorBlue: '#0071c5',
   appColorRed: '#FF0000',
   appColorGreen: '#00FF00',
-	appColorGrey1: '#D3D3D3',
-  appColorGrey2: '#CCCCCC',
-  appColorGrey3: '#FAFAFA',
+  appColorGrey1: '#F8F8F8',
+  appColorBlueLighter: '#66B2E8',
+  appColorBlue1: '#dfeafb',
 };
