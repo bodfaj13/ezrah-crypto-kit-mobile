@@ -5,67 +5,37 @@ import {
   SafeAreaView,
   StyleSheet,
   StatusBar,
-  RefreshControl,
   TouchableOpacity,
   Platform,
   Animated,
 } from 'react-native';
 import TokenItem from '../components/token-item/token-item';
 import {lightColorMode} from '../theme/colors';
-import {Token, useTokenInfo, useTokenList} from '../api/tokenQueries';
-import Menu from '../assets/svg/menu.svg';
-import User from '../assets/svg/user.svg';
+import {TokenDetail} from '../api/tokenQueries';
 import {RootStackParamList} from '../routes';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {DrawerNavigationProp} from '@react-navigation/drawer';
+import {
+  NavigationProp,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
+import GoBack from '../assets/svg/goback.svg';
+import useTokenStore from '../hooks/useTokenStore';
+import NoData from '../assets/svg/nodata.svg';
 
-const Tokens: React.FC = () => {
+const Favourites: React.FC = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const navigationDrawer =
-    useNavigation<DrawerNavigationProp<RootStackParamList>>();
+  type RouteType = RouteProp<RootStackParamList, 'Favourites'>;
+  const {params} = useRoute<RouteType>();
   const scrollY = useRef(new Animated.Value(0)).current;
+  const {tokens} = useTokenStore();
 
-  const [refreshing, setRefreshing] = useState(false);
   const [flatListHeight, setFlatListHeight] = useState(0);
   const [isScrollable, setIsScrollable] = useState(false);
 
-  useEffect(() => {
-    console.log({
-      flatListHeight,
-    });
-  }, [flatListHeight]);
-
-  // Custom hook to fetch token list
-  const {isPending, data: tokens, refetch} = useTokenList(20);
-
-  // Join token ids to be used for fetching additional info
-  const ids = tokens?.map(item => item.id).join(',');
-
-  // Fetch additional token information based on token ids
-  const {
-    data: infoData,
-    isPending: isInfoPending,
-    error: infoError,
-  } = useTokenInfo(ids);
-
-  // Handle refreshing
-  const onRefresh = async () => {
-    setRefreshing(true);
-    await refetch();
-    setRefreshing(false);
-  };
-
   // Function to render each token item
-  const renderItems = ({index, item}: {index: number; item: Token}) => {
-    // Find additional token info based on id
-    const info = infoData?.find(i => i.id === item.id);
-
-    return (
-      <TokenItem
-        tokenDetail={{...item, ...info}}
-        key={`token-${index}-${item?.id}`}
-      />
-    );
+  const renderItems = ({index, item}: {index: number; item: TokenDetail}) => {
+    return <TokenItem tokenDetail={item} key={`token-${index}-${item?.id}`} />;
   };
 
   // Header animation for opacity (fades out as you scroll down)
@@ -96,6 +66,28 @@ const Tokens: React.FC = () => {
     extrapolate: 'clamp',
   });
 
+  const ListEmptyComponent = () => {
+    return (
+      <View style={styles.emptyContainer}>
+        <NoData />
+        <Text style={styles.emptyTextMain}>
+          Special place for your favorite tokens
+        </Text>
+        <Text style={styles.emptyTextSub}>
+          Add you favorite coins and check here easily
+        </Text>
+      </View>
+    );
+  };
+
+  const handleGoBack = () => {
+    if (params?.gotoBackToSettings) {
+      navigation.navigate('Settings');
+    } else {
+      navigation.canGoBack() ? navigation.goBack() : () => {};
+    }
+  };
+
   const onLayout = (event: {nativeEvent: {layout: {height: any}}}) => {
     const {height} = event.nativeEvent.layout;
     setFlatListHeight(height);
@@ -119,12 +111,12 @@ const Tokens: React.FC = () => {
             <TouchableOpacity
               activeOpacity={0.6}
               onPress={() => {
-                navigationDrawer?.openDrawer();
+                handleGoBack();
               }}>
-              <Menu
+              <GoBack
+                width={20}
+                height={20}
                 fill={lightColorMode.appColorBlack}
-                width={30}
-                height={30}
               />
             </TouchableOpacity>
             <Animated.Text
@@ -134,15 +126,8 @@ const Tokens: React.FC = () => {
                   opacity: isScrollable ? headerTextOpacity : 0,
                 },
               ]}>
-              Tokens
+              Favourites
             </Animated.Text>
-            <TouchableOpacity
-              activeOpacity={0.6}
-              onPress={() => {
-                navigation.navigate('Settings');
-              }}>
-              <User width={35} height={35} />
-            </TouchableOpacity>
           </View>
 
           {/* Animated header section with text */}
@@ -150,45 +135,38 @@ const Tokens: React.FC = () => {
             style={[
               styles.header,
               {
-                height: isScrollable ? headerHeight : 70,
-                opacity: isScrollable ? headerOpacity : 1,
-                transform: isScrollable ? [{translateY: headerTranslateY}] : [],
-              },
+								height: isScrollable ? headerHeight : 70,
+								opacity: isScrollable ? headerOpacity : 1,
+								transform: isScrollable ? [{translateY: headerTranslateY}] : [],
+							},
             ]}>
-            <Text style={styles.headerText}>Tokens</Text>
+            <Text style={styles.headerText}>Favourites</Text>
             <Text style={styles.headerSubText}>
               Listing and managing your favourite tokens
             </Text>
           </Animated.View>
 
           {/* Conditional rendering for token list if data is available */}
-          {isPending ? null : (
-            <View style={styles.tokenList}>
-              <Animated.FlatList
-                onLayout={onLayout}
-                data={tokens}
-                renderItem={renderItems}
-                refreshControl={
-                  <RefreshControl
-                    refreshing={refreshing}
-                    onRefresh={onRefresh}
-                  />
-                }
-                // Track scroll position for animations
-                onScroll={
-                  isScrollable
-                    ? Animated.event(
-                        [{nativeEvent: {contentOffset: {y: scrollY}}}],
-                        {useNativeDriver: false},
-                      )
-                    : undefined
-                }
-                style={styles.tokensList}
-                keyExtractor={item => item?.id}
-                showsVerticalScrollIndicator={false}
-              />
-            </View>
-          )}
+          <View style={styles.tokenList}>
+            <Animated.FlatList
+              ListEmptyComponent={<ListEmptyComponent />}
+              onLayout={onLayout}
+              data={tokens}
+              renderItem={renderItems}
+              // Track scroll position for animations
+              onScroll={
+                isScrollable
+                  ? Animated.event(
+                      [{nativeEvent: {contentOffset: {y: scrollY}}}],
+                      {useNativeDriver: false},
+                    )
+                  : undefined
+              }
+              style={styles.tokensList}
+              keyExtractor={item => item?.id}
+              showsVerticalScrollIndicator={false}
+            />
+          </View>
         </View>
       </SafeAreaView>
     </>
@@ -198,7 +176,8 @@ const Tokens: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? 50 : 20, // Platform-specific padding for iOS and Android
+    // Platform-specific padding for iOS and Android
+    paddingTop: Platform.OS === 'ios' ? 50 : 20,
     backgroundColor: lightColorMode.appColorGrey,
   },
   header: {
@@ -225,7 +204,6 @@ const styles = StyleSheet.create({
   topHeader: {
     paddingHorizontal: 16,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
   topHeaderText: {
@@ -233,11 +211,30 @@ const styles = StyleSheet.create({
     color: lightColorMode.appColorBlack,
     fontWeight: '600',
     fontFamily: 'Lato-Bold',
+    marginLeft: 10,
   },
   headerSubText: {
     fontSize: 16,
     fontFamily: 'Lato-Regular',
   },
+	emptyContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+	emptyTextMain: {
+    fontSize: 28,
+    fontFamily: 'Lato-Bold',
+    color: lightColorMode.appColorBlack,
+    textAlign: 'center',
+  },
+  emptyTextSub: {
+    fontSize: 16,
+    fontFamily: 'Lato-Regular',
+    color: lightColorMode.appColorBlack,
+    textAlign: 'center',
+  },
 });
 
-export default Tokens;
+export default Favourites;

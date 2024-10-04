@@ -12,8 +12,6 @@ class CoinApi {
         'Accept': 'application/json',
       },
     });
-
-    console.log(response.status);
     if (response) {
       return response;
     }

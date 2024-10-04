@@ -3,7 +3,7 @@ module.exports = {
   plugins: [
     ['module:react-native-dotenv', {
       moduleName: '@env', // Import module as @env
-      path: '.env.example',       // Path to the .env file
+      path: '.env',       // Path to the .env file
       // safe: false,
       // allowUndefined: true,
     }],

@@ -1,10 +1,15 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
-import SingleToken from './screens/single-tokens';
 import Tokens from './screens/tokens';
 import Settings from './screens/settings';
+import {TokenDetail, TokenInfo} from './api/tokenQueries';
+import SingleToken from './screens/single-token';
+import Favourites from './screens/favourites';
+import CustomSideBar from './components/custom-side-bar/custom-side-bar';
+import Terms from './screens/terms';
+import Privacy from './screens/privacy';
 
 // the aim is to have 3 simple screens.
 // drawer navigation
@@ -12,37 +17,56 @@ import Settings from './screens/settings';
 //    A stack navigator within crypto view to hold two screens the main view and the single crypto assets view.
 //
 
+export type RootStackParamList = {
+  Tokens: undefined;
+  SingleToken: {
+    tokenDetail?: TokenDetail;
+  };
+  Settings: undefined;
+  Favourites: {
+    gotoBackToSettings?: boolean;
+  };
+  Terms: undefined;
+  Privacy: undefined;
+};
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator();
 
 const StackView = () => {
-  return (<Stack.Navigator screenOptions={
-    {
-      headerShown: false,
-    }
-  }>
-    <Stack.Screen name="Tokens" component={Tokens} />
-    <Stack.Screen name="SingleToken" component={SingleToken} />
-  </Stack.Navigator>);
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="Tokens" component={Tokens} />
+      <Stack.Screen name="SingleToken" component={SingleToken} />
+    </Stack.Navigator>
+  );
 };
 
 const DrawerNavigator = () => (
-  <Drawer.Navigator screenOptions={{
-    headerTransparent: true,
-    headerTitle: '',
-  }}>
+  <Drawer.Navigator
+    drawerContent={props => <CustomSideBar {...props} />}
+    screenOptions={{
+      headerTransparent: true,
+      headerTitle: '',
+      headerShown: false,
+    }}>
     <Drawer.Screen name="MainView" component={StackView} />
     <Drawer.Screen name="Settings" component={Settings} />
+    <Drawer.Screen name="Favourites" component={Favourites} />
+    <Drawer.Screen name="Terms" component={Terms} />
+    <Drawer.Screen name="Privacy" component={Privacy} />
   </Drawer.Navigator>
 );
 
-
 const App = () => {
-  return (<NavigationContainer>
-    <DrawerNavigator />
-  </NavigationContainer>);
+  return (
+    <NavigationContainer>
+      <DrawerNavigator />
+    </NavigationContainer>
+  );
 };
-
 
 export default App;
