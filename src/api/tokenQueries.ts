@@ -46,7 +46,6 @@ export type CryptoTicker = {
  * @returns A promise that resolves to an array of Token objects.
  */
 const fetchTokens = async (limit?: number): Promise<Token[]> => {
-	console.log("Fetching tokens...");
   const {data} = await axios.post(GRAPHQL_ENDPOINT, {
     query: `
       query($limit: Int){
