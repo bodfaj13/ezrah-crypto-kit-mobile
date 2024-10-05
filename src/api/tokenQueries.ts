@@ -1,10 +1,9 @@
 import {useQuery} from '@tanstack/react-query';
 import axios from 'axios';
 import Configs from '../config';
+import {FALLBACK_BASE_URL} from '../utils/appdetails';
 
-const GRAPHQL_ENDPOINT = Configs.coinApiClient.base_url;
-
-const CACHE_TIME = 100 * 24 * 60 * 60 * 1000;
+const GRAPHQL_ENDPOINT = Configs.coinApiClient.base_url ?? FALLBACK_BASE_URL;
 
 export type Token = {
   id: string;
@@ -41,6 +40,11 @@ export type CryptoTicker = {
   marketCap: number;
 };
 
+/**
+ * Fetches a list of tokens from the GraphQL endpoint.
+ * @param limit Optional parameter to limit the number of tokens returned.
+ * @returns A promise that resolves to an array of Token objects.
+ */
 const fetchTokens = async (limit?: number): Promise<Token[]> => {
   const {data} = await axios.post(GRAPHQL_ENDPOINT, {
     query: `
@@ -59,6 +63,11 @@ const fetchTokens = async (limit?: number): Promise<Token[]> => {
   return data.data.tokens;
 };
 
+/**
+ * Fetches detailed information for specific tokens.
+ * @param ids A string of comma-separated token IDs.
+ * @returns A promise that resolves to an array of TokenInfo objects.
+ */
 const fetchTokenInfo = async (ids: string): Promise<TokenInfo[]> => {
   const {data} = await axios.post(GRAPHQL_ENDPOINT, {
     query: `
@@ -78,6 +87,14 @@ const fetchTokenInfo = async (ids: string): Promise<TokenInfo[]> => {
   return data.data.tokenInfo;
 };
 
+/**
+ * Fetches historical ticker data for a specific cryptocurrency.
+ * @param cryptoId The ID of the cryptocurrency.
+ * @param startDate The start date for the historical data.
+ * @param endDate Optional end date for the historical data.
+ * @param limit Optional limit on the number of data points returned.
+ * @returns A promise that resolves to an array of CryptoTicker objects.
+ */
 const fetchCryptoTickers = async (
   cryptoId: string,
   startDate: string,
@@ -100,29 +117,39 @@ const fetchCryptoTickers = async (
   return data.data.getCryptoTickers;
 };
 
+/**
+ * React Query hook for fetching a list of tokens.
+ * @param limit Optional parameter to limit the number of tokens returned.
+ * @returns A query result object containing the token list data.
+ */
 export const useTokenList = (limit?: number) => {
   return useQuery<Token[], Error>({
     queryKey: ['tokenList', limit],
     queryFn: () => fetchTokens(limit),
-    staleTime: CACHE_TIME,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
   });
 };
 
+/**
+ * React Query hook for fetching detailed information for specific tokens.
+ * @param ids A string of comma-separated token IDs.
+ * @returns A query result object containing the token info data.
+ */
 export const useTokenInfo = (ids: string | undefined) => {
   return useQuery<TokenInfo[], Error>({
     queryKey: ['tokenInfo', ids],
     queryFn: () => fetchTokenInfo(ids || ''),
     enabled: !!ids,
-    staleTime: CACHE_TIME,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
   });
 };
 
+/**
+ * React Query hook for fetching historical ticker data for a specific cryptocurrency.
+ * @param cryptoId The ID of the cryptocurrency.
+ * @param startDate The start date for the historical data.
+ * @param endDate Optional end date for the historical data.
+ * @param limit Optional limit on the number of data points returned.
+ * @returns A query result object containing the crypto ticker data.
+ */
 export const useCryptoTickers = (
   cryptoId: string,
   startDate: string,

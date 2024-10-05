@@ -22,13 +22,17 @@ import {
 import GoBack from '../assets/svg/goback.svg';
 import useTokenStore from '../hooks/useTokenStore';
 import NoData from '../assets/svg/nodata.svg';
+import {useTheme} from '../theme/theme';
 
-const Favourites: React.FC = () => {
+const Favorites: React.FC = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  type RouteType = RouteProp<RootStackParamList, 'Favourites'>;
+  type RouteType = RouteProp<RootStackParamList, 'Favorites'>;
   const {params} = useRoute<RouteType>();
   const scrollY = useRef(new Animated.Value(0)).current;
   const {tokens} = useTokenStore();
+
+  // Get theme-related data from the context
+  const {theme} = useTheme();
 
   const [flatListHeight, setFlatListHeight] = useState(0);
   const [isScrollable, setIsScrollable] = useState(false);
@@ -66,20 +70,6 @@ const Favourites: React.FC = () => {
     extrapolate: 'clamp',
   });
 
-  const ListEmptyComponent = () => {
-    return (
-      <View style={styles.emptyContainer}>
-        <NoData />
-        <Text style={styles.emptyTextMain}>
-          Special place for your favorite tokens
-        </Text>
-        <Text style={styles.emptyTextSub}>
-          Add you favorite coins and check here easily
-        </Text>
-      </View>
-    );
-  };
-
   const handleGoBack = () => {
     if (params?.gotoBackToSettings) {
       navigation.navigate('Settings');
@@ -101,10 +91,37 @@ const Favourites: React.FC = () => {
     }
   }, [flatListHeight, tokens]);
 
+  // Optimized Dynamic styles that depend on the theme
+  const dynamicStyles = React.useMemo(
+    () => ({
+      container: {
+        backgroundColor: theme.appColorGrey,
+      },
+      blackText: {
+        color: theme.appColorBlack,
+      },
+    }),
+    [theme],
+  );
+
+  const ListEmptyComponent = () => {
+    return (
+      <View style={styles.emptyContainer}>
+        <NoData />
+        <Text style={[styles.emptyTextMain, dynamicStyles.blackText]}>
+          Special place for your favorite tokens
+        </Text>
+        <Text style={[styles.emptyTextSub, dynamicStyles.blackText]}>
+          Add you favorite coins and check here easily
+        </Text>
+      </View>
+    );
+  };
+
   return (
     <>
       <StatusBar />
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container, dynamicStyles.container]}>
         <View style={{flex: 1}}>
           {/* Top header containing the menu button, title, and user icon */}
           <View style={[styles.topHeader]}>
@@ -113,20 +130,17 @@ const Favourites: React.FC = () => {
               onPress={() => {
                 handleGoBack();
               }}>
-              <GoBack
-                width={20}
-                height={20}
-                fill={lightColorMode.appColorBlack}
-              />
+              <GoBack width={20} height={20} fill={theme.appColorBlack} />
             </TouchableOpacity>
             <Animated.Text
               style={[
                 styles.topHeaderText,
                 {
                   opacity: isScrollable ? headerTextOpacity : 0,
+                  color: theme.appColorBlack,
                 },
               ]}>
-              Favourites
+              Favorites
             </Animated.Text>
           </View>
 
@@ -135,13 +149,15 @@ const Favourites: React.FC = () => {
             style={[
               styles.header,
               {
-								height: isScrollable ? headerHeight : 70,
-								opacity: isScrollable ? headerOpacity : 1,
-								transform: isScrollable ? [{translateY: headerTranslateY}] : [],
-							},
+                height: isScrollable ? headerHeight : 70,
+                opacity: isScrollable ? headerOpacity : 1,
+                transform: isScrollable ? [{translateY: headerTranslateY}] : [],
+              },
             ]}>
-            <Text style={styles.headerText}>Favourites</Text>
-            <Text style={styles.headerSubText}>
+            <Text style={[styles.headerText, dynamicStyles.blackText]}>
+              Favorites
+            </Text>
+            <Text style={[styles.headerSubText, dynamicStyles.blackText]}>
               Listing and managing your favourite tokens
             </Text>
           </Animated.View>
@@ -178,7 +194,6 @@ const styles = StyleSheet.create({
     flex: 1,
     // Platform-specific padding for iOS and Android
     paddingTop: Platform.OS === 'ios' ? 50 : 20,
-    backgroundColor: lightColorMode.appColorGrey,
   },
   header: {
     marginTop: 15,
@@ -198,7 +213,6 @@ const styles = StyleSheet.create({
   headerText: {
     fontWeight: 'bold',
     fontSize: 40,
-    color: lightColorMode.appColorBlack,
     fontFamily: 'Lato-Bold',
   },
   topHeader: {
@@ -208,7 +222,6 @@ const styles = StyleSheet.create({
   },
   topHeaderText: {
     fontSize: 16,
-    color: lightColorMode.appColorBlack,
     fontWeight: '600',
     fontFamily: 'Lato-Bold',
     marginLeft: 10,
@@ -217,24 +230,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Lato-Regular',
   },
-	emptyContainer: {
+  emptyContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
   },
-	emptyTextMain: {
+  emptyTextMain: {
     fontSize: 28,
     fontFamily: 'Lato-Bold',
-    color: lightColorMode.appColorBlack,
     textAlign: 'center',
   },
   emptyTextSub: {
     fontSize: 16,
     fontFamily: 'Lato-Regular',
-    color: lightColorMode.appColorBlack,
     textAlign: 'center',
   },
 });
 
-export default Favourites;
+export default Favorites;

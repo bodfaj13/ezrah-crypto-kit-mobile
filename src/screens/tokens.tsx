@@ -11,13 +11,14 @@ import {
   Animated,
 } from 'react-native';
 import TokenItem from '../components/token-item/token-item';
-import {lightColorMode} from '../theme/colors';
 import {Token, useTokenInfo, useTokenList} from '../api/tokenQueries';
 import Menu from '../assets/svg/menu.svg';
 import User from '../assets/svg/user.svg';
 import {RootStackParamList} from '../routes';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
+import {useTheme} from '../theme/theme';
+import { lightColorMode } from '../theme/colors';
 
 const Tokens: React.FC = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -25,15 +26,12 @@ const Tokens: React.FC = () => {
     useNavigation<DrawerNavigationProp<RootStackParamList>>();
   const scrollY = useRef(new Animated.Value(0)).current;
 
+  // Get theme-related data from the context
+  const {theme} = useTheme();
+
   const [refreshing, setRefreshing] = useState(false);
   const [flatListHeight, setFlatListHeight] = useState(0);
   const [isScrollable, setIsScrollable] = useState(false);
-
-  useEffect(() => {
-    console.log({
-      flatListHeight,
-    });
-  }, [flatListHeight]);
 
   // Custom hook to fetch token list
   const {isPending, data: tokens, refetch} = useTokenList(20);
@@ -109,20 +107,36 @@ const Tokens: React.FC = () => {
     }
   }, [flatListHeight, tokens]);
 
+  // Optimized Dynamic styles that depend on the theme
+  const dynamicStyles = React.useMemo(
+    () => ({
+      container: {
+        backgroundColor: theme.appColorGrey,
+      },
+      blackText: {
+        color: theme.appColorBlack,
+      },
+      whiteBg: {
+        backgroundColor: theme.appColorWhite,
+      },
+    }),
+    [theme],
+  );
+
   return (
     <>
       <StatusBar />
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container, dynamicStyles.container]}>
         <View style={{flex: 1}}>
           {/* Top header containing the menu button, title, and user icon */}
-          <View style={[styles.topHeader]}>
+          <View style={styles.topHeader}>
             <TouchableOpacity
               activeOpacity={0.6}
               onPress={() => {
                 navigationDrawer?.openDrawer();
               }}>
               <Menu
-                fill={lightColorMode.appColorBlack}
+                fill={theme.appColorBlack} // Theme-based color
                 width={30}
                 height={30}
               />
@@ -132,6 +146,7 @@ const Tokens: React.FC = () => {
                 styles.topHeaderText,
                 {
                   opacity: isScrollable ? headerTextOpacity : 0,
+                  color: theme.appColorBlack,
                 },
               ]}>
               Tokens
@@ -141,7 +156,11 @@ const Tokens: React.FC = () => {
               onPress={() => {
                 navigation.navigate('Settings');
               }}>
-              <User width={35} height={35} />
+              <User
+                width={35}
+                height={35}
+                fill={lightColorMode.appColorWhite}
+              />
             </TouchableOpacity>
           </View>
 
@@ -155,15 +174,17 @@ const Tokens: React.FC = () => {
                 transform: isScrollable ? [{translateY: headerTranslateY}] : [],
               },
             ]}>
-            <Text style={styles.headerText}>Tokens</Text>
-            <Text style={styles.headerSubText}>
+            <Text style={[styles.headerText, dynamicStyles.blackText]}>
+              Tokens
+            </Text>
+            <Text style={[styles.headerSubText, dynamicStyles.blackText]}>
               Listing and managing your favourite tokens
             </Text>
           </Animated.View>
 
           {/* Conditional rendering for token list if data is available */}
           {isPending ? null : (
-            <View style={styles.tokenList}>
+            <View style={[styles.tokenList, dynamicStyles.whiteBg]}>
               <Animated.FlatList
                 onLayout={onLayout}
                 data={tokens}
@@ -199,7 +220,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Platform.OS === 'ios' ? 50 : 20, // Platform-specific padding for iOS and Android
-    backgroundColor: lightColorMode.appColorGrey,
   },
   header: {
     marginTop: 15,
@@ -219,7 +239,6 @@ const styles = StyleSheet.create({
   headerText: {
     fontWeight: 'bold',
     fontSize: 40,
-    color: lightColorMode.appColorBlack,
     fontFamily: 'Lato-Bold',
   },
   topHeader: {
@@ -230,7 +249,6 @@ const styles = StyleSheet.create({
   },
   topHeaderText: {
     fontSize: 16,
-    color: lightColorMode.appColorBlack,
     fontWeight: '600',
     fontFamily: 'Lato-Bold',
   },

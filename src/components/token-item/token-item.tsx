@@ -15,6 +15,8 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../../routes';
 import ArrowUp from '../../assets/svg/arrow-up.svg';
 import ArrowDown from '../../assets/svg/arrow-down.svg';
+import {Notifier, NotifierComponents} from 'react-native-notifier';
+import {useTheme} from '../../theme/theme';
 
 type TokenItemProps = {
   tokenDetail: TokenDetail;
@@ -26,25 +28,53 @@ const RightAction = (
   tokenDetail: TokenDetail,
   onActionComplete: () => void,
 ) => {
+  // Access token store functions
   const {addToken, removeToken, isTokenInArray} = useTokenStore();
   const [viewHeight, setViewHeight] = useState<number | null>(null);
+  // Get theme-related data from the context
+  const {theme} = useTheme();
 
+  // Handle layout to set the height of the swipeable area
   const handleLayout = (event: {nativeEvent: {layout: {height: any}}}) => {
     const {height} = event.nativeEvent.layout;
     setViewHeight(height - 15);
   };
 
+  // Animated style for swipe action
   const styleAnimation = useAnimatedStyle(() => {
     return {
       transform: [{translateX: drag.value + 50}],
     };
   });
 
+  // Optimized Dynamic styles that depend on the theme
+  const dynamicStyles = React.useMemo(
+    () => ({
+      blackText: {
+        color: theme.appColorBlack,
+      },
+    }),
+    [theme],
+  );
+
+  // Handle press on the heart icon
   const handlePress = () => {
     if (isTokenInArray(tokenDetail?.id)) {
       removeToken(tokenDetail?.id);
     } else {
       addToken(tokenDetail);
+      // Show notification when token is added to favorites
+      Notifier.showNotification({
+        title: tokenDetail?.name,
+        description: `${tokenDetail?.symbol} has been added to your favorites.`,
+        Component: NotifierComponents.Notification,
+        componentProps: {
+          imageSource: {uri: tokenDetail?.logo},
+          containerStyle: {
+            borderRadius: 8,
+          },
+        },
+      });
     }
     onActionComplete();
   };
@@ -63,10 +93,10 @@ const RightAction = (
             <SolidHeart
               width={20}
               height={20}
-              fill={lightColorMode.appColorBlack}
+              fill={theme.appColorBlack}
             />
           ) : (
-            <Heart width={20} height={20} fill={lightColorMode.appColorBlack} />
+            <Heart width={20} height={20} fill={theme.appColorBlack} />
           )}
         </TouchableOpacity>
       </View>
@@ -79,6 +109,7 @@ const TokenItem = ({tokenDetail}: TokenItemProps) => {
   const swipeableRef =
     useRef<React.ElementRef<typeof ReanimatedSwipeable>>(null);
 
+  // Function to close the swipeable action
   const closeSwipeable = () => {
     swipeableRef.current?.close();
   };
@@ -118,6 +149,7 @@ const TokenItem = ({tokenDetail}: TokenItemProps) => {
             {formatCurrency(tokenDetail.price)}
           </Text>
           <View style={styles.indicators}>
+            {/* Display arrow up or down based on percentage change */}
             {tokenDetail.percentageChange1h > 0 ? (
               <ArrowUp
                 fill={lightColorMode.appColorGreen}
@@ -131,6 +163,8 @@ const TokenItem = ({tokenDetail}: TokenItemProps) => {
                 height={16}
               />
             )}
+
+            {/* Display percentage change with color */}
             <Text
               style={
                 tokenDetail.percentageChange1h > 0

@@ -28,6 +28,7 @@ import ArrowDown from '../assets/svg/arrow-down.svg';
 import {formatCurrency} from '../utils/helper';
 import SingleTokenChart from '../components/charts/single-token-chart';
 import LiveData from '../components/charts/live-data';
+import {useTheme} from '../theme/theme';
 
 const views = [
   {
@@ -48,6 +49,9 @@ const SingleToken = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {addToken, removeToken, isTokenInArray} = useTokenStore();
 
+  // Get theme-related data from the context
+  const {theme} = useTheme();
+
   // Default view is 'overview'
   const [activeView, setActiveView] = useState(views[0].id);
 
@@ -67,10 +71,23 @@ const SingleToken = () => {
     }
   };
 
+  // Optimized Dynamic styles that depend on the theme
+  const dynamicStyles = React.useMemo(
+    () => ({
+      container: {
+        backgroundColor: theme.appColorGrey,
+      },
+      blackText: {
+        color: theme.appColorBlack,
+      },
+    }),
+    [theme],
+  );
+
   return (
     <>
       <StatusBar />
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container, dynamicStyles.container]}>
         <View
           style={{
             flex: 1,
@@ -83,11 +100,7 @@ const SingleToken = () => {
                 onPress={() => {
                   navigation.canGoBack() ? navigation.goBack() : () => {};
                 }}>
-                <GoBack
-                  width={20}
-                  height={20}
-                  fill={lightColorMode.appColorBlack}
-                />
+                <GoBack width={20} height={20} fill={theme.appColorBlack} />
               </TouchableOpacity>
               <Image
                 source={{
@@ -95,22 +108,16 @@ const SingleToken = () => {
                 }}
                 style={styles.logo}
               />
-              <Text style={styles.headerText}>{params?.tokenDetail?.name}</Text>
+              <Text style={[styles.headerText, dynamicStyles.blackText]}>
+                {params?.tokenDetail?.name}
+              </Text>
             </View>
 
             <TouchableOpacity activeOpacity={0.6} onPress={handlePress}>
               {isTokenInArray(params?.tokenDetail?.id as string) ? (
-                <SolidHeart
-                  width={24}
-                  height={24}
-                  fill={lightColorMode.appColorBlack}
-                />
+                <SolidHeart width={24} height={24} fill={theme.appColorBlack} />
               ) : (
-                <Heart
-                  width={24}
-                  height={24}
-                  fill={lightColorMode.appColorBlack}
-                />
+                <Heart width={24} height={24} fill={theme.appColorBlack} />
               )}
             </TouchableOpacity>
           </View>
@@ -121,7 +128,7 @@ const SingleToken = () => {
             {/* Show upward or downward arrow based on price change */}
             <View style={styles.priceDetails}>
               {/* Token price */}
-              <Text style={styles.infoMainText}>
+              <Text style={[styles.infoMainText, dynamicStyles.blackText]}>
                 {formatCurrency(params?.tokenDetail?.price)}
               </Text>
               {params?.tokenDetail?.percentageChange1h !== undefined && (
@@ -129,13 +136,13 @@ const SingleToken = () => {
                   {/* Price change indicator (up or down arrow) */}
                   {params?.tokenDetail?.percentageChange1h > 0 ? (
                     <ArrowUp
-                      fill={lightColorMode.appColorGreen}
+                      fill={theme.appColorGreen}
                       width={22}
                       height={22}
                     />
                   ) : (
                     <ArrowDown
-                      fill={lightColorMode.appColorRed}
+                      fill={theme.appColorRed}
                       width={22}
                       height={22}
                     />
@@ -205,7 +212,6 @@ export default SingleToken;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: lightColorMode.appColorGrey,
     paddingTop: Platform.OS === 'ios' ? 50 : 20,
   },
   header: {
@@ -217,7 +223,6 @@ const styles = StyleSheet.create({
   headerText: {
     fontWeight: '600',
     fontSize: 24,
-    color: lightColorMode.appColorBlack,
     marginLeft: 8,
     fontFamily: 'Lato-Bold',
   },
@@ -247,7 +252,6 @@ const styles = StyleSheet.create({
   infoMainText: {
     fontWeight: 'bold',
     fontSize: 40,
-    color: lightColorMode.appColorBlack,
     fontFamily: 'Lato-Bold',
   },
   indicators: {

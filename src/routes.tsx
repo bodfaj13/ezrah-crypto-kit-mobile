@@ -6,7 +6,7 @@ import Tokens from './screens/tokens';
 import Settings from './screens/settings';
 import {TokenDetail, TokenInfo} from './api/tokenQueries';
 import SingleToken from './screens/single-token';
-import Favourites from './screens/favourites';
+import Favorites from './screens/favorites';
 import CustomSideBar from './components/custom-side-bar/custom-side-bar';
 import Terms from './screens/terms';
 import Privacy from './screens/privacy';
@@ -23,7 +23,7 @@ export type RootStackParamList = {
     tokenDetail?: TokenDetail;
   };
   Settings: undefined;
-  Favourites: {
+  Favorites: {
     gotoBackToSettings?: boolean;
   };
   Terms: undefined;
@@ -55,7 +55,7 @@ const DrawerNavigator = () => (
     }}>
     <Drawer.Screen name="MainView" component={StackView} />
     <Drawer.Screen name="Settings" component={Settings} />
-    <Drawer.Screen name="Favourites" component={Favourites} />
+    <Drawer.Screen name="Favorites" component={Favorites} />
     <Drawer.Screen name="Terms" component={Terms} />
     <Drawer.Screen name="Privacy" component={Privacy} />
   </Drawer.Navigator>

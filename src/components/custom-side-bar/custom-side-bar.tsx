@@ -1,9 +1,7 @@
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
 } from 'react-native';
 import React from 'react';
 import {
@@ -20,6 +18,7 @@ import {RootStackParamList} from '../../routes';
 const CustomSideBar = (props: DrawerContentComponentProps) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
+  // Array of navigation items with their labels, actions, and icons
   const nav = [
     {
       label: 'Home',
@@ -40,7 +39,7 @@ const CustomSideBar = (props: DrawerContentComponentProps) => {
     {
       label: 'Favorites',
       action: () => {
-        navigation.navigate('Favourites', {
+        navigation.navigate('Favorites', {
           gotoBackToSettings: false,
         });
       },
@@ -50,6 +49,7 @@ const CustomSideBar = (props: DrawerContentComponentProps) => {
 
   return (
     <DrawerContentScrollView {...props} style={styles.container}>
+      {/* Map through nav items and render TouchableOpacity for each */}
       {nav.map(item => (
         <TouchableOpacity
           key={`nav-item-${item.label}`}

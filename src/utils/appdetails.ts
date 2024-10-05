@@ -1,0 +1,1 @@
+export const FALLBACK_BASE_URL = "http://ezrah-test.appspin.work/graphql"

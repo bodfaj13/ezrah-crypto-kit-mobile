@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React, {useEffect, useRef} from 'react';
 import {WebView} from 'react-native-webview';
 
@@ -12,6 +12,7 @@ const LiveData = ({symbol}: LiveDataProps) => {
   const interval = '1D';
   const theme = 'light';
 
+  // HTML content for the TradingView widget
   const chartHtml = `
 	<html>
 		<head>
@@ -40,6 +41,7 @@ const LiveData = ({symbol}: LiveDataProps) => {
 	</html>
 `;
 
+  // Effect hook to reload the WebView when the symbol changes
   useEffect(() => {
     if (webViewRef?.current !== undefined) {
       webViewRef?.current?.reload();
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
   chartContainer: {
     marginTop: 20,
     flex: 1,
-		height: 500
+    height: 500,
   },
   webview: {
     flex: 1,

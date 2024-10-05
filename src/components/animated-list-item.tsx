@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import {View, Text, Dimensions} from 'react-native';
 import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
@@ -10,16 +10,14 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { lightColorMode } from '../theme/colors';
+import {lightColorMode} from '../theme/colors';
 
 type Props = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
-
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const {width: SCREEN_WIDTH} = Dimensions.get('window');
 const SWIPE_TRESHHOLD = -SCREEN_WIDTH * 0.2;
-
 
 const AnimatedListItem: React.FC<Props> = (props: Props) => {
   const translateX = useSharedValue<number>(0);
@@ -38,49 +36,52 @@ const AnimatedListItem: React.FC<Props> = (props: Props) => {
     },
   });
 
-
-
   const animatedStyles = useAnimatedStyle(() => {
     return {
-      transform: [
-        { translateX: translateX.value },
-      ],
+      transform: [{translateX: translateX.value}],
     };
   });
 
-
   return (
-    <View style={{
-      flex: 1,
-      width: '100%',
-      height: 50,
-      marginVertical: 1,
-    }}>
-      <Animated.View style={[
-        {
-          height: '100%',
-          width: '100%',
-          position: 'absolute',
-          backgroundColor: lightColorMode.appColorBlack,
-          padding: 12,
-          flex: 1,
-        }]}>
-        <Text style={{ textAlign: 'right', verticalAlign: 'middle', color: 'white' }}>
+    <View
+      style={{
+        flex: 1,
+        width: '100%',
+        height: 50,
+        marginVertical: 1,
+      }}>
+      <Animated.View
+        style={[
+          {
+            height: '100%',
+            width: '100%',
+            position: 'absolute',
+            backgroundColor: lightColorMode.appColorBlack,
+            padding: 12,
+            flex: 1,
+          },
+        ]}>
+        <Text
+          style={{textAlign: 'right', verticalAlign: 'middle', color: 'white'}}>
           Over lay options here
         </Text>
       </Animated.View>
       <PanGestureHandler onGestureEvent={panGesture}>
-        <Animated.View style={[{
-          width: '100%',
-          height: '100%',
-          padding: 13,
-          backgroundColor: 'white',
-          marginVertical: 1,
-        }, animatedStyles]}>
+        <Animated.View
+          style={[
+            {
+              width: '100%',
+              height: '100%',
+              padding: 13,
+              backgroundColor: 'white',
+              marginVertical: 1,
+            },
+            animatedStyles,
+          ]}>
           {props.children}
         </Animated.View>
       </PanGestureHandler>
-    </View >
+    </View>
   );
 };
 
