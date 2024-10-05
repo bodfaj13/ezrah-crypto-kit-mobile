@@ -10,7 +10,6 @@ import {
   Animated,
 } from 'react-native';
 import TokenItem from '../components/token-item/token-item';
-import {lightColorMode} from '../theme/colors';
 import {TokenDetail} from '../api/tokenQueries';
 import {RootStackParamList} from '../routes';
 import {
