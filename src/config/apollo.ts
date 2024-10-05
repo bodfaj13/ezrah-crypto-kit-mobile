@@ -12,9 +12,10 @@ interface ApiConfig {
 
 // Load API configuration from your config file
 import Configs from '.';
+import {FALLBACK_BASE_URL} from '../utils/appdetails';
 
 const apiConfig: ApiConfig = {
-  graphqlUrl: Configs.coinApiClient.base_url,
+  graphqlUrl: Configs.coinApiClient.base_url ?? FALLBACK_BASE_URL,
 };
 
 // Create an http link

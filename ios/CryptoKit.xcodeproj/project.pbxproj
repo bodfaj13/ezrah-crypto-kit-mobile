@@ -11,9 +11,9 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		203EAC2EFBD0856E3F4C01B9 /* libPods-CryptoKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC0CAE95922B6FCBB7D16CF7 /* libPods-CryptoKit.a */; };
+		2BA2C44775BDACA8D553FCBF /* libPods-CryptoKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44B881E6F1E85A6EDB681A87 /* libPods-CryptoKit.a */; };
 		330388AC075A44CAAA9BC272 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CA8BB81BE60471FB7EC03A9 /* Lato-Bold.ttf */; };
-		3FCEA91CFCAA38ED2EAE6F46 /* libPods-CryptoKit-CryptoKitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4D52315C259A109B5F4EFCB /* libPods-CryptoKit-CryptoKitTests.a */; };
+		3CD5FAF65B0676788735973C /* libPods-CryptoKit-CryptoKitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671EDC20BDC120762279C488 /* libPods-CryptoKit-CryptoKitTests.a */; };
 		51A4D618B56E46E1B5CDE33E /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4D135280975A442CBFEA0D28 /* Lato-Regular.ttf */; };
 		5C83A838C0E145FDB57EC682 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3027130E3744FFBAE5BA8D5 /* Lato-Thin.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -35,7 +35,6 @@
 		00E356EE1AD99517003FC87E /* CryptoKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptoKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* CryptoKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CryptoKitTests.m; sourceTree = "<group>"; };
-		02C09903C4D8355F60C04A88 /* Pods-CryptoKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoKit.debug.xcconfig"; path = "Target Support Files/Pods-CryptoKit/Pods-CryptoKit.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* CryptoKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = CryptoKit/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = CryptoKit/AppDelegate.mm; sourceTree = "<group>"; };
@@ -45,15 +44,16 @@
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = CryptoKit/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		1CA8BB81BE60471FB7EC03A9 /* Lato-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
 		1E99F1FE863240CFB068D382 /* Lato-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Light.ttf"; path = "../assets/fonts/Lato-Light.ttf"; sourceTree = "<group>"; };
+		42CA2FDFD89BDE44C62E7FF5 /* Pods-CryptoKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoKit.debug.xcconfig"; path = "Target Support Files/Pods-CryptoKit/Pods-CryptoKit.debug.xcconfig"; sourceTree = "<group>"; };
+		44B881E6F1E85A6EDB681A87 /* libPods-CryptoKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CryptoKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D135280975A442CBFEA0D28 /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
-		7CF37B05E0F1E66C14B23214 /* Pods-CryptoKit-CryptoKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoKit-CryptoKitTests.debug.xcconfig"; path = "Target Support Files/Pods-CryptoKit-CryptoKitTests/Pods-CryptoKit-CryptoKitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		671EDC20BDC120762279C488 /* libPods-CryptoKit-CryptoKitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CryptoKit-CryptoKitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7ECFCBB2976958C7D7A6D09B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = CryptoKit/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = CryptoKit/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		A44E78BE98A136F527058B81 /* Pods-CryptoKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoKit.release.xcconfig"; path = "Target Support Files/Pods-CryptoKit/Pods-CryptoKit.release.xcconfig"; sourceTree = "<group>"; };
-		AC0CAE95922B6FCBB7D16CF7 /* libPods-CryptoKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CryptoKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B8DDA7FCFC1594BB867C0236 /* Pods-CryptoKit-CryptoKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoKit-CryptoKitTests.release.xcconfig"; path = "Target Support Files/Pods-CryptoKit-CryptoKitTests/Pods-CryptoKit-CryptoKitTests.release.xcconfig"; sourceTree = "<group>"; };
+		A2860D00BDA98B5B428E57DA /* Pods-CryptoKit-CryptoKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoKit-CryptoKitTests.release.xcconfig"; path = "Target Support Files/Pods-CryptoKit-CryptoKitTests/Pods-CryptoKit-CryptoKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		C3027130E3744FFBAE5BA8D5 /* Lato-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Thin.ttf"; path = "../assets/fonts/Lato-Thin.ttf"; sourceTree = "<group>"; };
-		D4D52315C259A109B5F4EFCB /* libPods-CryptoKit-CryptoKitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CryptoKit-CryptoKitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDD5D7C200CF440DB5D19972 /* Pods-CryptoKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoKit.release.xcconfig"; path = "Target Support Files/Pods-CryptoKit/Pods-CryptoKit.release.xcconfig"; sourceTree = "<group>"; };
+		DB8D8BD35CFD7FB4CC0B8A33 /* Pods-CryptoKit-CryptoKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoKit-CryptoKitTests.debug.xcconfig"; path = "Target Support Files/Pods-CryptoKit-CryptoKitTests/Pods-CryptoKit-CryptoKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -62,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FCEA91CFCAA38ED2EAE6F46 /* libPods-CryptoKit-CryptoKitTests.a in Frameworks */,
+				3CD5FAF65B0676788735973C /* libPods-CryptoKit-CryptoKitTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				203EAC2EFBD0856E3F4C01B9 /* libPods-CryptoKit.a in Frameworks */,
+				2BA2C44775BDACA8D553FCBF /* libPods-CryptoKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,8 +113,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				AC0CAE95922B6FCBB7D16CF7 /* libPods-CryptoKit.a */,
-				D4D52315C259A109B5F4EFCB /* libPods-CryptoKit-CryptoKitTests.a */,
+				44B881E6F1E85A6EDB681A87 /* libPods-CryptoKit.a */,
+				671EDC20BDC120762279C488 /* libPods-CryptoKit-CryptoKitTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -166,10 +166,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				02C09903C4D8355F60C04A88 /* Pods-CryptoKit.debug.xcconfig */,
-				A44E78BE98A136F527058B81 /* Pods-CryptoKit.release.xcconfig */,
-				7CF37B05E0F1E66C14B23214 /* Pods-CryptoKit-CryptoKitTests.debug.xcconfig */,
-				B8DDA7FCFC1594BB867C0236 /* Pods-CryptoKit-CryptoKitTests.release.xcconfig */,
+				42CA2FDFD89BDE44C62E7FF5 /* Pods-CryptoKit.debug.xcconfig */,
+				CDD5D7C200CF440DB5D19972 /* Pods-CryptoKit.release.xcconfig */,
+				DB8D8BD35CFD7FB4CC0B8A33 /* Pods-CryptoKit-CryptoKitTests.debug.xcconfig */,
+				A2860D00BDA98B5B428E57DA /* Pods-CryptoKit-CryptoKitTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -181,11 +181,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "CryptoKitTests" */;
 			buildPhases = (
-				68DC11DA3ABE54BC255E5B04 /* [CP] Check Pods Manifest.lock */,
+				CAE0EB6349FF275941289C77 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				02D2E4852BDA5E1866C9D969 /* [CP] Copy Pods Resources */,
+				8C3D142A01D45FFB76C8F462 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -201,12 +201,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "CryptoKit" */;
 			buildPhases = (
-				4E49AF9BB5EBDEDFB0C81534 /* [CP] Check Pods Manifest.lock */,
+				3C04578AF5CE59C5616D10B5 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				F550E3E7EF641A831DF0D1D5 /* [CP] Copy Pods Resources */,
+				A723D74F3D4AAC5AC27232C5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -294,24 +294,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		02D2E4852BDA5E1866C9D969 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CryptoKit-CryptoKitTests/Pods-CryptoKit-CryptoKitTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CryptoKit-CryptoKitTests/Pods-CryptoKit-CryptoKitTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CryptoKit-CryptoKitTests/Pods-CryptoKit-CryptoKitTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4E49AF9BB5EBDEDFB0C81534 /* [CP] Check Pods Manifest.lock */ = {
+		3C04578AF5CE59C5616D10B5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -333,7 +316,41 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		68DC11DA3ABE54BC255E5B04 /* [CP] Check Pods Manifest.lock */ = {
+		8C3D142A01D45FFB76C8F462 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CryptoKit-CryptoKitTests/Pods-CryptoKit-CryptoKitTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CryptoKit-CryptoKitTests/Pods-CryptoKit-CryptoKitTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CryptoKit-CryptoKitTests/Pods-CryptoKit-CryptoKitTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A723D74F3D4AAC5AC27232C5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CryptoKit/Pods-CryptoKit-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CryptoKit/Pods-CryptoKit-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CryptoKit/Pods-CryptoKit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CAE0EB6349FF275941289C77 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -353,23 +370,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F550E3E7EF641A831DF0D1D5 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CryptoKit/Pods-CryptoKit-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CryptoKit/Pods-CryptoKit-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CryptoKit/Pods-CryptoKit-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -405,7 +405,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7CF37B05E0F1E66C14B23214 /* Pods-CryptoKit-CryptoKitTests.debug.xcconfig */;
+			baseConfigurationReference = DB8D8BD35CFD7FB4CC0B8A33 /* Pods-CryptoKit-CryptoKitTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -432,7 +432,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B8DDA7FCFC1594BB867C0236 /* Pods-CryptoKit-CryptoKitTests.release.xcconfig */;
+			baseConfigurationReference = A2860D00BDA98B5B428E57DA /* Pods-CryptoKit-CryptoKitTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -456,7 +456,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 02C09903C4D8355F60C04A88 /* Pods-CryptoKit.debug.xcconfig */;
+			baseConfigurationReference = 42CA2FDFD89BDE44C62E7FF5 /* Pods-CryptoKit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -483,7 +483,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A44E78BE98A136F527058B81 /* Pods-CryptoKit.release.xcconfig */;
+			baseConfigurationReference = CDD5D7C200CF440DB5D19972 /* Pods-CryptoKit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

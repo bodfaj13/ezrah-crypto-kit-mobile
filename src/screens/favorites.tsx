@@ -103,6 +103,7 @@ const Favorites: React.FC = () => {
     [theme],
   );
 
+  //empty state view
   const ListEmptyComponent = () => {
     return (
       <View style={styles.emptyContainer}>

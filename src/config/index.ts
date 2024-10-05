@@ -13,4 +13,5 @@ class Configs {
   };
 }
 
+
 export default Configs;

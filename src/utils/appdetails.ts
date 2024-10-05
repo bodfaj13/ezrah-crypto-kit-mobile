@@ -1,1 +1,1 @@
-export const FALLBACK_BASE_URL = "http://ezrah-test.appspin.work/graphql"
+export const FALLBACK_BASE_URL = 'https://ezrah-test.appspin.work/graphql';

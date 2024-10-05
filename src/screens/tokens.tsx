@@ -18,7 +18,11 @@ import {RootStackParamList} from '../routes';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {useTheme} from '../theme/theme';
-import { lightColorMode } from '../theme/colors';
+import {lightColorMode} from '../theme/colors';
+import NoData from '../assets/svg/nodata.svg';
+import {Notifier, NotifierComponents} from 'react-native-notifier';
+import Preloader from '../components/preloader/preloader';
+import { dummyToken } from '../dummydata/dummy-data';
 
 const Tokens: React.FC = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -34,17 +38,18 @@ const Tokens: React.FC = () => {
   const [isScrollable, setIsScrollable] = useState(false);
 
   // Custom hook to fetch token list
-  const {isPending, data: tokens, refetch} = useTokenList(20);
+  const {
+    isPending: isTokensLoading,
+    data: tokens,
+    refetch,
+    error,
+  } = useTokenList(20);
 
   // Join token ids to be used for fetching additional info
   const ids = tokens?.map(item => item.id).join(',');
 
   // Fetch additional token information based on token ids
-  const {
-    data: infoData,
-    isPending: isInfoPending,
-    error: infoError,
-  } = useTokenInfo(ids);
+  const {data: infoData, isPending: isInfoPending} = useTokenInfo(ids);
 
   // Handle refreshing
   const onRefresh = async () => {
@@ -58,7 +63,16 @@ const Tokens: React.FC = () => {
     // Find additional token info based on id
     const info = infoData?.find(i => i.id === item.id);
 
-    return (
+    return isTokensLoading || isInfoPending ? (
+      <Preloader
+        style={{
+          width: '100%',
+          height: 80,
+          marginBottom: 10,
+          borderRadius: 8,
+        }}
+      />
+    ) : (
       <TokenItem
         tokenDetail={{...item, ...info}}
         key={`token-${index}-${item?.id}`}
@@ -123,6 +137,32 @@ const Tokens: React.FC = () => {
     [theme],
   );
 
+  //empty state view
+  const ListEmptyComponent = () => {
+    return (
+      <View style={styles.emptyContainer}>
+        <NoData />
+        <Text style={[styles.emptyTextSub, dynamicStyles.blackText]}>
+          Cant't load up tokens
+        </Text>
+      </View>
+    );
+  };
+
+  // handle error for getting tokens
+  useEffect(() => {
+    if (error) {
+      Notifier.showNotification({
+        title: 'Fetch tokens',
+        description: error?.message || 'Something went wrong',
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+      });
+    }
+  }, [error]);
+
   return (
     <>
       <StatusBar />
@@ -182,34 +222,35 @@ const Tokens: React.FC = () => {
             </Text>
           </Animated.View>
 
-          {/* Conditional rendering for token list if data is available */}
-          {isPending ? null : (
-            <View style={[styles.tokenList, dynamicStyles.whiteBg]}>
-              <Animated.FlatList
-                onLayout={onLayout}
-                data={tokens}
-                renderItem={renderItems}
-                refreshControl={
-                  <RefreshControl
-                    refreshing={refreshing}
-                    onRefresh={onRefresh}
-                  />
-                }
-                // Track scroll position for animations
-                onScroll={
-                  isScrollable
-                    ? Animated.event(
-                        [{nativeEvent: {contentOffset: {y: scrollY}}}],
-                        {useNativeDriver: false},
-                      )
-                    : undefined
-                }
-                style={styles.tokensList}
-                keyExtractor={item => item?.id}
-                showsVerticalScrollIndicator={false}
-              />
-            </View>
-          )}
+          <View style={[styles.tokenList, dynamicStyles.whiteBg]}>
+            <Animated.FlatList
+              ListEmptyComponent={
+                isTokensLoading || isInfoPending ? undefined : (
+                  <ListEmptyComponent />
+                )
+              }
+              onLayout={onLayout}
+              data={
+                isTokensLoading || isInfoPending ? dummyToken : tokens ?? []
+              }
+              renderItem={renderItems}
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              }
+              // Track scroll position for animations
+              onScroll={
+                isScrollable
+                  ? Animated.event(
+                      [{nativeEvent: {contentOffset: {y: scrollY}}}],
+                      {useNativeDriver: false},
+                    )
+                  : undefined
+              }
+              style={styles.tokensList}
+              keyExtractor={item => item?.id}
+              showsVerticalScrollIndicator={false}
+            />
+          </View>
         </View>
       </SafeAreaView>
     </>
@@ -255,6 +296,17 @@ const styles = StyleSheet.create({
   headerSubText: {
     fontSize: 16,
     fontFamily: 'Lato-Regular',
+  },
+  emptyContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  emptyTextSub: {
+    fontSize: 16,
+    fontFamily: 'Lato-Regular',
+    textAlign: 'center',
   },
 });
 
